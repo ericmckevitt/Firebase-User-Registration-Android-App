@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Firebase User Authentication</string>
+    <string name="add_user_floating_button">Add User Floating Button</string>
 </resources>
