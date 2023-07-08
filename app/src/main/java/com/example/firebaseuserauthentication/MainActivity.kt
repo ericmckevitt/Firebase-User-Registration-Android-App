@@ -1,13 +1,16 @@
 package com.example.firebaseuserauthentication
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.firebaseuserauthentication.databinding.ActivityMainBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -106,4 +109,47 @@ class MainActivity : AppCompatActivity() {
 
         })
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.menu_delete_all, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if (item.itemId == R.id.deleteAll) {
+            showDialogMessage()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun showDialogMessage() {
+
+        val dialogMessage = AlertDialog.Builder(this)
+        dialogMessage.setTitle("Delete All Users")
+        dialogMessage.setMessage("If click Yes, all users will be deleted" +
+                "If you want to delete a specific user, you can swipe the item you want to delete left or right.")
+        dialogMessage.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, i ->
+            dialogInterface.cancel()
+        })
+
+        dialogMessage.setPositiveButton("Yes", DialogInterface.OnClickListener { dialogInterface, i ->
+            myReference.removeValue().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    usersAdapter.notifyDataSetChanged()
+
+                    Toast.makeText(applicationContext, "All users were deleted", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        })
+
+        dialogMessage.create().show()
+
+    }
+
+
 }
