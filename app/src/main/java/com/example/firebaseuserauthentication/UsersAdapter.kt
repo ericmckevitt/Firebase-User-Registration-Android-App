@@ -23,9 +23,6 @@ class UsersAdapter(
         return UsersViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return userList.size
-    }
 
     override fun onBindViewHolder(holder: UsersViewHolder, position: Int) {
         holder.adapterBinding.textViewName.text = userList[position].userName
@@ -42,5 +39,12 @@ class UsersAdapter(
             context.startActivity(intent)
 
         }
+    }
+    override fun getItemCount(): Int {
+        return userList.size
+    }
+
+    fun getUserId(position: Int) : String{
+        return userList[position].userId
     }
 }
