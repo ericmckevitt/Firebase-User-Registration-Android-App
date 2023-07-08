@@ -7,6 +7,7 @@ import com.example.firebaseuserauthentication.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     lateinit var mainBinding : ActivityMainBinding
+    // Trivial Comment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
