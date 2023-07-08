@@ -1,6 +1,7 @@
 package com.example.firebaseuserauthentication
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,17 @@ class UsersAdapter(
         holder.adapterBinding.textViewName.text = userList[position].userName
         holder.adapterBinding.textViewAge.text = userList[position].userAge.toString()
         holder.adapterBinding.textViewEmail.text = userList[position].userEmail
+
+        holder.adapterBinding.linearLayout.setOnClickListener {
+            val intent = Intent(context, UpdateUserActivity::class.java)
+
+            intent.putExtra("id", userList[position].userId)
+            intent.putExtra("name", userList[position].userName)
+            intent.putExtra("age", userList[position].userAge)
+            intent.putExtra("email", userList[position].userEmail)
+
+            context.startActivity(intent)
+        }
 
     }
 
