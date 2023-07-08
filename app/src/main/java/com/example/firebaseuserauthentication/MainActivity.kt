@@ -41,8 +41,12 @@ class MainActivity : AppCompatActivity() {
 
     fun retrieveDataFromDatabase() {
 
+
         myReference.addValueEventListener(object: ValueEventListener{
+
             override fun onDataChange(snapshot: DataSnapshot) {
+
+                userList.clear()
 
                 for (eachUser in snapshot.children) {
                     val user = eachUser.getValue(Users::class.java)
