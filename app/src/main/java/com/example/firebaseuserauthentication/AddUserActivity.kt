@@ -30,7 +30,7 @@ class AddUserActivity : AppCompatActivity() {
     fun addUserToDatabase() {
         val name: String = addUserBinding.editTextName.text.toString()
         val age: Int = addUserBinding.editTextAge.text.toString().toInt()
-        val email: String = addUserBinding.editTextName.text.toString()
+        val email: String = addUserBinding.editTextEmail.text.toString()
 
         val id: String = myReference.push().key.toString()
 
