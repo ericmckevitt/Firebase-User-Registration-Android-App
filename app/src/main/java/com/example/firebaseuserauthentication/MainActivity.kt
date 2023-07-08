@@ -3,6 +3,7 @@ package com.example.firebaseuserauthentication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.firebaseuserauthentication.databinding.ActivityMainBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -16,6 +17,9 @@ class MainActivity : AppCompatActivity() {
 
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     val myReference: DatabaseReference = database.reference.child("MyUsers")
+
+    val userList = ArrayList<Users>()
+    lateinit var usersAdapter: UsersAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +53,14 @@ class MainActivity : AppCompatActivity() {
                         println("userAge: ${user.userAge}")
                         println("userEmail: ${user.userEmail}")
                         println("***************************************")
+
+                        userList.add(user)
                     }
+
+                    usersAdapter = UsersAdapter(this@MainActivity, userList)
+
+                    mainBinding.recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+                    mainBinding.recyclerView.adapter = usersAdapter
                 }
 
             }
